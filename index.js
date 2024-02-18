@@ -60,7 +60,7 @@ app.get("/login/:status", (req, res) => {
     res.render("login", {message:message})
 })
 
-app.get("/login/", isSigned, (req, res) => {
+app.get("/login", isSigned, (req, res) => {
     res.render("login", {message:''})
 })
 
