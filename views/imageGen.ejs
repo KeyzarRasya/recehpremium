@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/output.css">
+    <link rel="stylesheet" href="/style.css">
+    <title>Image Generator</title>
+</head>
+<style>
+    textarea{
+        resize: none;
+    }
+
+    .foc-magenta:focus{
+        border-color: #7b2cbf;
+    }
+</style>
+<body>
+    <div class="outer w-screen h-screen flex justify-center items-center">
+        <form action="/chatgpt/image-gen" method="post" class="w-3/6 h-5/6 shadow-2xl flex flex-col items-center justify-center">
+            <textarea placeholder="Enter prompt" maxlength="150" name="prompts" id="prompt" cols="70" rows="3" class="border-magenta focus:outline-none focus:border-2 foc-magenta border border-black">
+
+            </textarea>
+            <div class="flex  w-5/6 mt-3">
+                <input type="text" value="0 Character" class=" w-2/4 font-bold text-center magenta" id="char" disabled>
+                <input type="text" value="0 Token" name="allToken" class="w-2/4 font-bold text-center magenta" id="token">
+                <input type="number" class="hidden" id="user-token" value="<%= user.token %>" disabled>
+                <input type="text" name="token" id="totalToken" class="hidden">
+            </div>
+            <select name="resolution" id="resolution" class=" mt-5 border-b-2 border-magenta">
+                <option value="" selected>Select Image Resolution</option>
+                <option value="1024x1024">1024 x 1024</option>
+                <option value="512x512">512 x 512</option>
+                <option value="256x256">256 x 256</option>
+            </select>
+            <div class="flex w-5/6 justify-around">
+                <a class="mt-10 flex justify-center items-center bg-magentas text-white w-36 rounded-lg h-10" href="/service">Back</a>
+                <button disabled id="generate" class="mt-10 bg-red-400 text-white w-36 rounded-lg h-10">Generate</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        const prompts = document.getElementById("prompt");
+        const generate = document.querySelector("#generate")
+        const character = document.querySelector("#char")
+        const token = document.querySelector("#token")
+        const userToken = document.querySelector("#user-token")
+        const resolution = document.getElementById("resolution");
+        const totals = document.querySelector("#totalToken")
+        resolution.value = ''
+        let charToken = 0;
+        let resolutionToken = 0;
+        prompts.textContent = "";
+
+        prompts.addEventListener("change", function(e) {
+            e.preventDefault();
+            console.log(resolution.value)
+            charToken = parseInt(prompts.value.length / 10)
+            character.value = `${prompts.value.length} Character `
+            token.value = `${totalToken(charToken, resolutionToken)} Token`
+            if(parseInt(userToken.value) > parseInt(prompts.value.length / 10) && parseInt(prompts.value.length / 10) !== 0 && resolution.value !== ''){
+                generate.classList.replace("bg-red-400", "bg-magentas")
+                generate.removeAttribute("disabled")
+            }else {
+                console.log("in")
+                generate.classList.replace("bg-magentas", "bg-red-400")
+                generate.setAttribute("disabled", "disabled")
+            }
+        })
+
+        
+        resolution.addEventListener("change", function(e) {
+            e.preventDefault();
+            console.log(resolution.value)
+            if(resolution.value === "1024x1024"){
+                resolutionToken = 3
+                generate.classList.replace("bg-red-400", "bg-magentas")
+                generate.removeAttribute("disabled")
+            }else if(resolution.value === "512x512"){
+                resolutionToken = 2
+                generate.classList.replace("bg-red-400", "bg-magentas")
+                generate.removeAttribute("disabled")
+            }else if(resolution.value === "256x256"){
+                resolutionToken = 1
+                generate.classList.replace("bg-red-400", "bg-magentas")
+                generate.removeAttribute("disabled")
+            }else if(resolution.value === ''){
+                console.log("in reso")
+                generate.classList.replace("bg-magentas", "bg-red-400")
+                generate.setAttribute("disabled", "disabled")
+            }
+            token.value = `${totalToken(charToken, resolutionToken)} Token`
+        })
+
+        function totalToken(charToken, resoToken){
+            totals.value = charToken, resoToken;
+            return charToken + resoToken;
+        }
+
+    </script>
+</body>
+</html>

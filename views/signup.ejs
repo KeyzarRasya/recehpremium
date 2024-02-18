@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/output.css">
+    <link rel="stylesheet" href="/style.css">
+    <title>signup</title>
+</head>
+<body>
+    <div class="h-screen w-screen flex justify-center items-center">
+        <form action="/signup" method="POST" class=" w-3/6 h-5/6 flex flex-col items-center p-5">
+            <h1 class="magenta text-2xl font-bold">Welcome!</h1>
+            <div class="w-5/6 flex  justify-between mt-10   ">
+                <input id="fn" name="firstName" placeholder="First Name" class="border-b border-magenta w-5/12 focus:outline-none focus:border-b-2 h-12" type="text">
+                <input id="ln" name="lastName" placeholder="Last Name" class="border-b border-magenta w-5/12 focus:outline-none focus:border-b-2 h-12" type="text">
+            </div>
+            <p id="warningName" class="text-red-400 hidden">Please enter your first and lastname</p>
+            
+            <input id="email" name="email" placeholder="Email" class="border-b border-magenta w-5/6 focus:outline-none focus:border-b-2 h-12 mt-10" type="email">
+            <p id="warning" class="text-red-400 hidden">Email must contain @gmail.com</p>
+            <input id="password" name="password" placeholder="Password" class="border-b border-magenta w-5/6 focus:outline-none focus:border-b-2 h-12 mt-10" type="password">
+            <p  id="warningpw" class="text-red-400 hidden">password must atleast 6 character</p>
+            <button id="signup" class="mt-10 w-5/6 rounded-md h-12 magenta border-magenta border-2  text-white bg-white " disabled>Sign up!</button>
+            <h1 class="mt-5">Already have account? <a href="/login" class="magenta font-bold underline">Login</a></h1>
+        </form>
+    </div>
+    <script>
+        const email = document.querySelector("#email")
+        const warning = document.querySelector("#warning")
+        const warningName = document.querySelector("#warningName")
+        const warningpw = document.querySelector("#warningpw")
+        const signup = document.querySelector("#signup")
+        const password = document.querySelector("#password");
+        const fn = document.querySelector("#fn")
+        const ln = document.querySelector("#ln")
+
+        email.addEventListener('change', function(e){
+            e.preventDefault()
+            isDisable(fn.value, ln.value, email.value, password.value)
+        })
+
+        password.addEventListener('change', function(e){
+            e.preventDefault()
+            
+            isDisable(fn.value, ln.value, email.value, password.value)
+        })
+
+        fn.addEventListener('change', function(e){
+            e.preventDefault()
+            isDisable(fn.value, ln.value, email.value, password.value)
+        })
+
+        ln.addEventListener('change', function(e){
+            e.preventDefault()
+            isDisable(fn.value, ln.value, email.value, password.value)
+        })
+
+        function isDisable(first, last, email, password){
+            let condition = [];
+            if(first === ""){
+                condition[0] = false
+                warningName.classList.remove("hidden")
+            }else{
+                condition[0] = true
+                warningName.classList.add("hidden")
+            }
+
+            if(last === ""){
+                condition[1] = false
+                warningName.classList.remove("hidden")
+            }else{
+                condition[1] = true
+                warningName.classList.add("hidden")
+            }
+
+            if(!email.includes("@gmail.com")){
+                condition[2] = false
+                warning.classList.remove("hidden")
+            }else{
+                condition[2] = true
+                warning.classList.add("hidden")
+                
+            }
+
+            if(password.length < 6){
+                condition[3] = false
+                warningpw.classList.remove("hidden")
+            }else{
+                condition[3] = true
+                warningpw.classList.add("hidden")
+                
+            }
+
+            condition.forEach(condition => {
+                if(condition === true){
+                signup.removeAttribute("disabled")
+                signup.classList.replace("bg-red-500", "bg-white")
+                signup.classList.add("border-2")
+                signup.classList.add('magenta')
+                }else if(condition === false){
+                signup.setAttribute("disabled", "disabled")
+                signup.classList.replace("bg-white", "bg-red-500")
+                signup.classList.replace("magenta", "text-white")
+                signup.classList.remove("border-2")
+                return
+                }
+            })
+        }
+    </script>
+</body>
+</html>

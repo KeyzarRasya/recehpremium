@@ -1,0 +1,31 @@
+.magenta{
+    color: #7b2cbf;
+}
+
+.border-magenta{
+    border-color: #7b2cbf;
+}
+
+.bg-magentas{
+    background-color: #7b2cbf;
+}
+
+.bg-magenta:hover{
+    background-color: #7b2cbf;
+}
+
+.dark-magenta{
+    color: #240046;
+}
+
+.images{
+    background-image: url("/17373.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.imgen{
+    background-image: url("/imgen.jpg");
+    background-size: cover;
+    background-position: center;
+}

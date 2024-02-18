@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/output.css">
+    <title>Text to speech</title>
+</head>
+<style>
+    textarea{
+        resize: none;
+    }
+</style>
+<body class="w-screen h-screen flex justify-center items-center">
+    <form action="/chatgpt/text-to-speech" method="post" class="w-3/4 h-5/6  p-3 flex flex-col items-center border-black">
+        <label for="text" class="text-2xl font-bold magenta">Ubah text menjadi Suara</label>
+        <textarea onchange="countChar(event)" placeholder="Masukan text" name="text" id="text" cols="50" rows="10" class=" mt-5 border focus:border-2 focus:outline-none w-5/6 border-magenta">
+
+        </textarea>
+        <div class="flex  w-5/6 mt-3">
+            <input type="text" value="0 Character" class="w-2/4 font-bold text-center magenta" id="char" disabled>
+            <input type="text" value="0 Token" class="w-2/4 font-bold text-center magenta" id="token">
+            <input type="number" class="hidden" id="user-token" value="<%= user.token %>" disabled>
+        </div>
+        <label for="voice" class="mt-3 underline magenta">Voice Option</label>
+        <select name="voice" id="" class="w-2/6 h-10 border border-magenta focus:outline-none focus:border-2">
+            <option value="alloy">Alloy</option>
+            <option value="echo">Echo</option>
+            <option value="fable">Fable</option>
+            <option value="onyx">Onyx</option>
+            <option value="nova">Nova</option>
+            <option value="shimmer">Shimmer</option>
+        </select>
+        <div class="flex w-5/6 justify-around">
+            <a class="mt-10 flex justify-center items-center bg-magentas text-white w-36 rounded-lg h-10" href="/service">Back</a>
+            <button disabled id="generate" class="mt-10 bg-red-400 text-white w-36 rounded-lg h-10">Generate</button>
+        </div>
+
+    </form>
+    <script>
+        const textareas = document.querySelector("#text")
+        const character = document.querySelector("#char")
+        const token = document.querySelector("#token")
+        const userToken = document.querySelector("#user-token")
+        const generate = document.querySelector("#generate")
+
+        textareas.textContent = ''
+
+        
+
+        function countChar(event){
+            event.preventDefault()
+            character.value = `${textareas.value.length} Character `
+            token.value = `${parseInt(textareas.value.length / 10)} Token`
+            if(parseInt(userToken.value) > parseInt(textareas.value.length / 10) && parseInt(textareas.value.length / 10) !== 0){
+                generate.classList.replace("bg-red-400", "bg-magentas")
+                generate.removeAttribute("disabled")
+            }else{
+                console.log("in")
+                generate.classList.replace("bg-magentas", "bg-red-400")
+                generate.setAttribute("disabled", "disabled")
+            }
+        }
+    </script>
+</body>
+</html>

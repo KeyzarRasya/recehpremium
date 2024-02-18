@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/output.css">
+    <title>Service</title>
+</head>
+<body>
+    <div class="boxes h-full border w-screen p-10">
+        <div class="info w-full h-1/4 bg-white rounded-lg shadow-xl flex p-5">
+            <div class="w-2/4 flex flex-col">
+                <h1 class="h-1/4 text-2xl text-left">Halo!</h1>
+                <h1 class="w-3/4 mt-3 flex items-center text-3xl magenta font-bold underline"><%= user.firstName  %> <%= user.lastName  %></h1>
+            </div>
+            <div class="w-2/4 flex flex-col items-center ">
+                <h1 class="text-3xl h-3/4 flex justify-center items-center magenta font-bold"><%= user.token  %> Token</h1>
+                <div class=" flex justify-center w-full">
+                    <a href="/topup" class="h-10 magenta rounded-full font-bold w-20 border-2 border-magenta flex justify-center bg-magenta items-center  hover:text-white">Top up</a>
+                    <a href="/logout" class="h-10 text-red-500 rounded-full ml-20 font-bold w-20 border-2 border-red-600 flex justify-center items-center  hover:text-white hover:bg-red-500">Logout</a>
+                </div>
+                
+            </div>
+        </div>
+        <div class="infos shadow-xl border-2 mt-5 w-full rounded-lg h-20 flex flex-col justify-center items-center text-xl">
+            <h1>"<span class="magenta font-bold">Token</span> is used for transaction, each service cost token to work. so, prepare yout <span class="magenta font-bold">Token</span> first"</h1>
+            <h1 class="magenta font-bold">-Master oogway</h1>
+        </div>
+
+        <div class="service w-full h-full mt-5 grid grid-cols-5 justify-items-center gap-4">
+            <a href="/chatgpt/text-to-speech" class="w-56 duration-500 hover:scale-105 h-64 border-2 p-3 shadow-xl flex flex-col border-magenta">
+                <div class="images w-full h-3/4">
+
+                </div>
+                <h1 class="text-center font-bold text-lg magenta">Text to Speech</h1>
+            </a>
+
+            <a href="/chatgpt/image-gen" class="w-56 duration-500 hover:scale-105 h-64 border-2 p-3 shadow-xl flex flex-col border-magenta">
+                <div class="imgen w-full h-3/4">
+
+                </div>
+                <h1 class="text-center font-bold text-lg magenta">Image Generator</h1>
+            </a>
+
+            
+        </div>
+    </div>
+</body>
+</html>

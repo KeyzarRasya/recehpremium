@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/output.css">
+    <link rel="stylesheet" href="/style.css">
+    <title>Topup</title>
+</head>
+<body>
+    <div class="h-screen w-screen flex justify-center items-center">
+        <form action="/transaction/topup" method="post" class="froms w-3/6 h-4/6 flex flex-col items-center">
+            <h1 class="magenta font-bold text-2xl">Happy Shopping</h1>
+            <input type="number" name="token" id="token" value="0" step="5" class="mt-14 w-3/6 border-b border-magenta focus:outline-none focus:border-b-2">
+            <div class="flex w-3/6 mt-10 justify-between">
+                <h1 class="magenta font-bold">Price : </h1>
+                <h1 class="text-green-500 font-bold">Rp. <span id="price"></span></h1>
+            </div>
+            <input type="number" value="0" name="gross" class="hidden" id="gross">
+            <div class="flex w-3/6 justify-between mt-10">
+                <a class="w-5/12 h-10 rounded-full text-white bg-white border-magenta magenta border-2 ml-5 flex justify-center items-center" href="/service">Back</a>
+                <button id="pay" class="w-5/12 h-10 rounded-full bg-purple-950 text-white" disabled>Pay</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        const token = document.querySelector("#token")
+        const price = document.querySelector("#price")
+        const gross = document.querySelector("#gross")
+        const pay = document.querySelector("#pay")
+
+        function formatRupiah(angka) {
+            let reverse = angka.toString().split('').reverse().join('');
+            let ribuan = reverse.match(/\d{1,3}/g);
+            let hasil = ribuan.join('.').split('').reverse().join('');
+            return `${hasil}`;
+        }
+
+        token.addEventListener('change', function(e){
+            e.preventDefault();
+            const tokenToRupiah = token.value * 100;
+            gross.value = tokenToRupiah
+            price.textContent = formatRupiah(tokenToRupiah);
+            if(token.value >= 5){
+                pay.removeAttribute("disabled")
+                pay.classList.replace("bg-purple-950", "bg-magentas")
+            }else if(token < 5){
+                pay.setAttribute("disabled", "disabled")
+                pay.classList.replace("bg-magentas", "bg-purple-950")
+            }
+        })
+    </script>
+</body>
+</html>
