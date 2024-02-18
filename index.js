@@ -16,7 +16,7 @@ const { jwtDecode } = require('jwt-decode')
 const CryptoJS = require("crypto-js")
 
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGODB_URI)
 .then(res => console.log("Success"))
 .catch(err => console.log(err))
 
