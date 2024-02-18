@@ -13,6 +13,7 @@ const cookieParser = require("cookie-parser")
 const jwt = require('jsonwebtoken')
 const path = require("path")
 const { jwtDecode } = require('jwt-decode')
+const ejs = require("ejs")
 const CryptoJS = require("crypto-js")
 
 
@@ -20,7 +21,7 @@ mongoose.connect(process.env.MONGODB_URI)
 .then(res => console.log("Success"))
 .catch(err => console.log(err))
 
-const app = new express();
+const app = express();
 
 app.use(session({
     secret:"cheap",
@@ -62,7 +63,7 @@ app.get("/login/:status", (req, res) => {
 })
 
 app.get("/login", isSigned, (req, res) => {
-    res.render("login", {message:''})
+    res.render("login")
 })
 
 app.get("/topup", isLogin, (req, res) => {
