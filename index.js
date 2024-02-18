@@ -11,6 +11,7 @@ const [isLogin, isSigned] = require("./src/middleware/auth")
 const [wrongPasswordHandler] = require("./controller/middleware/validation")
 const cookieParser = require("cookie-parser")
 const jwt = require('jsonwebtoken')
+const path = require("path")
 const { jwtDecode } = require('jwt-decode')
 const CryptoJS = require("crypto-js")
 
@@ -37,6 +38,7 @@ app.use("/chatgpt", chatgpt)
 app.use("/transaction", payment);
 
 app.set("view engine", "ejs")
+app.set('views', path.join(__dirname, 'views'));
 
 app.get("/",isLogin, (req, res) => {
     res.render("service")
