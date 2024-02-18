@@ -1,4 +1,5 @@
-const express = require("express")
+const express = require("express");
+const { jwtDecode } = require("jwt-decode");
 const midtransClient = require("midtrans-client")
 const {v4:uuid} = require("uuid")
 require("dotenv").config()
@@ -12,6 +13,8 @@ const snap = new midtransClient.Snap({
 
 router.post("/topup", (req, res) => {
     const {gross} = req.body;
+    const users = jwtDecode(req.signedCookies.token);
+    console.log(users)
     const parameter = {
         "transaction_details":{
             "order_id":uuid(),
@@ -21,9 +24,9 @@ router.post("/topup", (req, res) => {
             "secure":true
         },
         "customer_details":{
-            "first_name":req.session.user.firstName,
-            "last_name":req.session.user.lastName,
-            "email":req.session.user.email
+            "first_name":users.user.firstName,
+            "last_name":users.user.lastName,
+            "email":users.user.email
         }
     }
     snap.createTransaction(parameter)
