@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build-nd && npm run bui;d-tw",
+    "build": "npm run build-nd && npm run build-tw",
     "build-nd": "nodemon index.js",
     "build-tw": "npx tailwindcss -i ./views/input.css -o ./views/output.css --watch"
   },
