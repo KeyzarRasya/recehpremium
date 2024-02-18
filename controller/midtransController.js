@@ -11,7 +11,7 @@ const snap = new midtransClient.Snap({
 })
 
 router.post("/topup", (req, res) => {
-    const {gross,} = req.body;
+    const {gross} = req.body;
     const parameter = {
         "transaction_details":{
             "order_id":uuid(),
