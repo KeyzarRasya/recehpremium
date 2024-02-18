@@ -30,13 +30,14 @@ app.use(session({
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-app.use(express.static("views"))
-app.use(express.static("image"))
+
 app.use(cookieParser(process.env.COOKIE_SECRET))
 
 app.use("/chatgpt", chatgpt)
 app.use("/transaction", payment);
 
+app.use(express.static("views"))
+app.use(express.static("image"))
 app.set("view engine", "ejs")
 app.set('views', path.join(__dirname, 'views'));
 
